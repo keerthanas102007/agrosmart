@@ -1,0 +1,113 @@
+.motor-panel { display:flex; align-items:center; gap:18px; padding:18px; background:var(--bg-card2); border-radius:12px; margin-bottom:18px; }
+.motor-indicator { width:76px; height:76px; border-radius:50%; display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0; }
+.motor-indicator--on  { background:rgba(46,125,50,0.1); }
+.motor-indicator--off { background:rgba(198,40,40,0.08); }
+.motor-indicator__ring { position:absolute; inset:0; border-radius:50%; border:3px solid; }
+.motor-indicator--on  .motor-indicator__ring { border-color:#2e7d32; animation:motorPulse 2s ease-in-out infinite; }
+.motor-indicator--off .motor-indicator__ring { border-color:#c62828; }
+@keyframes motorPulse { 0%,100%{box-shadow:0 0 0 0 rgba(46,125,50,0.3)} 50%{box-shadow:0 0 0 10px rgba(46,125,50,0)} }
+.motor-status__label { font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:3px; }
+.motor-status__value { font-size:14px; font-weight:600; margin-bottom:3px; }
+.motor-status__sub   { font-size:12px; color:var(--text-muted); }
+.motor-btns { display:flex; gap:10px; margin-bottom:4px; }
+.motor-btn { flex:1; padding:11px; border-radius:10px; border:none; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; transition:all 0.2s; }
+.motor-btn--start { background:linear-gradient(135deg,#2e7d32,#43a047); color:#fff; box-shadow:0 3px 10px rgba(46,125,50,0.3); }
+.motor-btn--stop  { background:linear-gradient(135deg,#c62828,#e53935); color:#fff; box-shadow:0 3px 10px rgba(198,40,40,0.3); }
+.motor-btn--disabled { opacity:0.4; cursor:not-allowed; box-shadow:none; }
+.motor-stat-row { display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--border); font-size:13px; color:var(--text-secondary); }
+.motor-stat-row:last-child { border-bottom:none; }
+.motor-stat-row strong { color:var(--text-primary); }
+
+.field-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border); }
+.field-row:last-child { border-bottom:none; }
+.field-row__info { flex:1; }
+.field-row__name   { font-size:14px; font-weight:600; color:var(--text-primary); }
+.field-row__detail { font-size:11px; color:var(--text-muted); margin-top:2px; }
+.field-row__flow   { font-size:11px; color:#0277bd; font-weight:500; }
+.field-toggle-btn { width:34px; height:34px; border-radius:50%; border:none; background:var(--primary-pale); color:var(--primary-light); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.18s; font-size:13px; }
+.field-toggle-btn--on { background:var(--danger-light); color:var(--danger); }
+.field-toggle-btn:hover { transform:scale(1.1); }
+
+/* Schedule */
+.schedule-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-bottom:8px; }
+.schedule-card { background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--radius-md); padding:18px; box-shadow:var(--shadow-sm); }
+.schedule-card__header { display:flex; justify-content:space-between; margin-bottom:14px; }
+.schedule-card__field { font-size:16px; font-weight:700; color:var(--text-primary); }
+.schedule-card__times { display:flex; align-items:flex-end; gap:10px; margin-bottom:12px; }
+.schedule-card__times > div { flex:1; display:flex; flex-direction:column; gap:4px; }
+.schedule-card__times label { font-size:10px; font-weight:700; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.5px; }
+.schedule-card__arrow { font-size:20px; color:var(--text-muted); padding-bottom:6px; }
+.time-input { width:100%; padding:8px 10px; border:1.5px solid var(--border); border-radius:8px; font-size:14px; background:var(--input-bg); color:var(--text-primary); outline:none; cursor:pointer; }
+.time-input:focus { border-color:var(--primary-light); }
+.schedule-card__req { background:var(--info-light); border-radius:8px; padding:10px 12px; display:flex; flex-direction:column; gap:3px; }
+.schedule-card__req span { font-size:13px; color:var(--text-primary); }
+.schedule-card__note { font-size:11px; color:var(--text-secondary); }
+
+/* ── New Weather Motor styles ─────────────────────── */
+.auto-mode-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-top: 1px solid var(--border, #e0e7ef); margin-top: 12px;
+}
+/* Toggle switch */
+.switch { position: relative; display: inline-block; width: 46px; height: 26px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; inset: 0; background: #ccc; border-radius: 26px; transition: 0.3s; }
+.slider:before { position: absolute; content: ""; width: 20px; height: 20px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: 0.3s; }
+.switch input:checked + .slider { background: #2e7d32; }
+.switch input:checked + .slider:before { transform: translateX(20px); }
+
+/* Location form */
+.location-form { background: var(--bg-secondary, #f8fbf8); border-radius: 12px; padding: 16px; margin-top: 12px; border: 1px solid var(--border, #e0e7ef); }
+.location-form .form-group { margin-bottom: 12px; }
+.location-form label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted, #546e7a); margin-bottom: 5px; }
+.location-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.location-form .form-actions { display: flex; gap: 10px; margin-top: 12px; }
+.btn-sm { padding: 7px 14px !important; font-size: 12px !important; }
+
+/* No location placeholder */
+.no-location-msg { text-align: center; padding: 30px 16px; color: var(--text-muted, #90a4ae); }
+.no-location-msg span { font-size: 36px; display: block; margin-bottom: 8px; }
+.no-location-msg p { margin: 0 0 14px; font-size: 13px; }
+
+/* Weather panel */
+.weather-panel { margin-top: 12px; }
+.weather-current {
+  display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(135deg, #1b5e20, #43a047); color: #fff;
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 14px;
+}
+.weather-icon { font-size: 40px; flex-shrink: 0; }
+.weather-temp { font-size: 28px; font-weight: 800; line-height: 1; }
+.weather-location { font-size: 12px; opacity: 0.85; margin-top: 3px; }
+.weather-details { display: flex; flex-direction: column; gap: 4px; margin-left: auto; }
+.weather-details span { font-size: 12px; background: rgba(255,255,255,0.15); padding: 3px 8px; border-radius: 20px; }
+
+.rain-forecast { margin-bottom: 14px; }
+.rain-forecast h4 { font-size: 13px; font-weight: 700; margin: 0 0 10px; color: var(--text-secondary, #546e7a); }
+.forecast-row { display: flex; gap: 8px; }
+.forecast-day {
+  flex: 1; text-align: center; background: var(--bg-secondary, #f0f4f8);
+  border-radius: 10px; padding: 10px 6px;
+}
+.forecast-date { font-size: 11px; color: var(--text-muted, #90a4ae); font-weight: 600; text-transform: uppercase; }
+.forecast-rain { font-size: 15px; font-weight: 800; color: #1565c0; margin-top: 4px; }
+
+.motor-recommendation {
+  border-radius: 12px; padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.motor-recommendation.recommendation--off { background: #e3f2fd; border: 1px solid #90caf9; }
+.motor-recommendation.recommendation--on  { background: #e8f5e9; border: 1px solid #a5d6a7; }
+.rec-icon { font-size: 28px; flex-shrink: 0; }
+.rec-title { font-size: 14px; font-weight: 700; color: var(--text-primary, #1a2332); }
+.rec-desc  { font-size: 13px; color: var(--text-secondary, #546e7a); margin-top: 4px; }
+.rec-rain  { font-size: 12px; color: #1565c0; margin-top: 4px; font-weight: 600; }
+
+/* Logs */
+.logs-list { display: flex; flex-direction: column; gap: 8px; }
+.log-item { display: flex; align-items: center; gap: 12px; padding: 10px; background: var(--bg-secondary, #f8fbf8); border-radius: 8px; font-size: 13px; }
+.log-action { font-weight: 800; padding: 3px 10px; border-radius: 20px; font-size: 12px; }
+.log-action--on  { background: #e8f5e9; color: #2e7d32; }
+.log-action--off { background: #ffebee; color: #c62828; }
+.log-trigger { color: var(--text-secondary, #546e7a); flex: 1; }
+.log-time { font-size: 11px; color: var(--text-muted, #90a4ae); }

@@ -1,0 +1,166 @@
+.crop-cards-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.crop-selector-card {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+}
+
+.crop-selector-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.crop-selector-card__icon {
+  font-size: 32px;
+}
+
+.crop-selector-card__name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.crop-selector-card__conf {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.crop-detail-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.crop-detail-card__emoji {
+  font-size: 48px;
+}
+
+.crop-detail-card__name {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.crop-detail-card__season {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.crop-confidence {
+  margin-left: auto;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  padding: 14px 18px;
+  border-radius: 14px;
+  line-height: 1.2;
+}
+
+.crop-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.crop-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.crop-meta-item__icon {
+  font-size: 18px;
+}
+
+.crop-meta-item__label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.crop-meta-item__value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+.crop-reason {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.crop-reason__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.crop-reason p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.soil-summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.soil-summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.soil-summary-item:last-child {
+  border-bottom: none;
+}
+
+.soil-summary-item__left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.soil-summary-item__label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.soil-summary-item__value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}

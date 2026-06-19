@@ -1,0 +1,135 @@
+/* ── Reports Page ─────────────────────────────────────────── */
+
+/* Stat cards grid */
+.rpt-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.rpt-stat-card {
+  background: var(--card-bg, #fff);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid var(--border, #e0e7ef);
+  transition: transform 0.18s;
+}
+.rpt-stat-card:hover { transform: translateY(-2px); }
+
+.rpt-stat-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.rpt-stat-body { flex: 1; min-width: 0; }
+.rpt-stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted, #90a4ae);
+  margin-bottom: 4px;
+}
+.rpt-stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.rpt-unit { font-size: 13px; font-weight: 600; }
+.rpt-stat-sub {
+  font-size: 11px;
+  color: var(--text-muted, #90a4ae);
+  line-height: 1.4;
+}
+
+/* Sensor reading chips */
+.rpt-sensor-box { margin-bottom: 0; }
+.rpt-sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+.rpt-sensor-chip {
+  background: var(--bg-secondary, #f8fbf8);
+  border-radius: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border, #e0e7ef);
+}
+.rpt-sensor-val {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 3px;
+}
+.rpt-sensor-lbl {
+  font-size: 11px;
+  color: var(--text-muted, #90a4ae);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* Activity list */
+.rpt-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rpt-activity-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--bg-secondary, #f8fbf8);
+  border-radius: 8px;
+  border: 1px solid var(--border, #e8f0e8);
+}
+.rpt-activity-key {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary, #1a2332);
+  text-transform: capitalize;
+}
+.rpt-activity-right { display: flex; gap: 10px; align-items: center; }
+.rpt-activity-count {
+  font-size: 13px;
+  font-weight: 800;
+  color: #2e7d32;
+  background: #e8f5e9;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+.rpt-activity-qty {
+  font-size: 11px;
+  color: var(--text-muted, #90a4ae);
+}
+
+/* Empty / no-data state */
+.rpt-no-data {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--text-muted, #90a4ae);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.rpt-empty, .rpt-loading {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-muted, #90a4ae);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .rpt-stats-grid { grid-template-columns: 1fr 1fr; }
+  .rpt-sensor-grid { grid-template-columns: repeat(3, 1fr); }
+}

@@ -1,0 +1,355 @@
+/* ═══════════════════════════════════════════════════════
+   SmartFlowPanel.css — Full flow integration panel
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Full panel ──────────────────────────────────────────── */
+.sfp {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 16px;
+  padding: 20px 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.sfp__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sfp__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a1a);
+  margin: 0;
+}
+
+.sfp__summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sfp__badge {
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.sfp__reset-btn {
+  background: none;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: var(--text-secondary, #666);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sfp__reset-btn:hover { background: #f5f5f5; }
+
+/* ── Progress bar ──────────────────────────────────────── */
+.sfp__progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.sfp__progress-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--border-color, #e0e0e0);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.sfp__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #66bb6a);
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.sfp__pct {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2e7d32;
+  min-width: 38px;
+  text-align: right;
+}
+
+/* ── Smart Alerts ──────────────────────────────────────── */
+.sfp__alerts {
+  margin-bottom: 16px;
+}
+
+.sfp__alerts-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.sfp__alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.sfp-alert--warning {
+  background: #fff8e1;
+  color: #e65100;
+  border: 1px solid #ffcc02;
+}
+.sfp-alert--danger {
+  background: #fce4ec;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+.sfp-alert--info {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #90caf9;
+}
+
+.sfp__alert-btn {
+  background: rgba(0,0,0,0.08);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  color: inherit;
+  transition: background 0.2s;
+}
+.sfp__alert-btn:hover { background: rgba(0,0,0,0.14); }
+
+/* ── Data summary strip ────────────────────────────────── */
+.sfp__data-strip {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.sfp__data-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  font-weight: 500;
+}
+.sfp__data-chip:hover { transform: translateY(-1px); }
+.sfp__data-chip span { color: inherit; opacity: 0.8; font-weight: 400; }
+
+.sfp-chip--soil   { background: #f3e5f5; color: #6a1b9a; border: 1px solid #ce93d8; }
+.sfp-chip--crop   { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+.sfp-chip--sensor { background: #e3f2fd; color: #0d47a1; border: 1px solid #90caf9; }
+
+/* ── Steps grid ────────────────────────────────────────── */
+.sfp__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sfp__step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.15s;
+  border: 1.5px solid transparent;
+}
+
+.sfp__step--done {
+  background: #f1f8f1;
+  border-color: #c8e6c9;
+  opacity: 0.85;
+}
+
+.sfp__step--current {
+  background: linear-gradient(135deg, #e8f5e9, #f0f7ff);
+  border-color: #66bb6a;
+  box-shadow: 0 2px 8px rgba(76,175,80,0.2);
+}
+
+.sfp__step--pending {
+  background: var(--card-bg, #fff);
+  border-color: var(--border-color, #e8e8e8);
+  opacity: 0.6;
+}
+
+.sfp__step:hover {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+.sfp__step-icon {
+  font-size: 20px;
+  min-width: 28px;
+  text-align: center;
+}
+
+.sfp__step-body {
+  flex: 1;
+}
+
+.sfp__step-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+  margin-bottom: 2px;
+}
+
+.sfp__step-desc {
+  font-size: 12px;
+  color: var(--text-secondary, #888);
+  line-height: 1.4;
+}
+
+.sfp__step-cta {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2e7d32;
+  white-space: nowrap;
+  padding: 4px 10px;
+  background: #e8f5e9;
+  border-radius: 20px;
+}
+
+/* ── Complete banner ───────────────────────────────────── */
+.sfp__complete-banner {
+  margin-top: 16px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+
+/* ═══════════════════════════════
+   COMPACT version (for page banners)
+   ═══════════════════════════════ */
+.sfp-compact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.sfp-compact__progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.sfp-compact__bar {
+  flex: 1;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sfp-compact__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #66bb6a);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.sfp-compact__text {
+  font-size: 11px;
+  color: var(--text-secondary, #888);
+  white-space: nowrap;
+}
+
+.sfp-compact__next {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.sfp-compact__next:hover { background: #c8e6c9; }
+
+.sfp-compact__alert {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  flex: 1;
+  min-width: 160px;
+}
+
+/* ── Dark mode support ─────────────────────────────────── */
+[data-theme="dark"] .sfp,
+[data-theme="dark"] .sfp-compact {
+  background: #1e2d1e;
+  border-color: #2d4a2d;
+}
+
+[data-theme="dark"] .sfp__step--done    { background: #1a2f1a; border-color: #2d5a2d; }
+[data-theme="dark"] .sfp__step--current { background: linear-gradient(135deg, #1a3020, #1a2533); border-color: #4caf50; }
+[data-theme="dark"] .sfp__step--pending { background: #1a231a; border-color: #2d3d2d; }
+
+[data-theme="dark"] .sfp-chip--soil   { background: #2a1a2f; color: #ce93d8; border-color: #6a3b8a; }
+[data-theme="dark"] .sfp-chip--crop   { background: #1a2f1a; color: #a5d6a7; border-color: #2e5e2e; }
+[data-theme="dark"] .sfp-chip--sensor { background: #1a2540; color: #90caf9; border-color: #1a4a7a; }
+
+[data-theme="dark"] .sfp-alert--warning { background: #2f2010; color: #ffcc80; border-color: #cc8800; }
+[data-theme="dark"] .sfp-alert--danger  { background: #2f1015; color: #ef9a9a; border-color: #c62828; }
+[data-theme="dark"] .sfp-alert--info    { background: #102030; color: #90caf9; border-color: #1565c0; }
+
+[data-theme="dark"] .sfp__badge { background: #1a3020; color: #a5d6a7; }
+[data-theme="dark"] .sfp__step-cta { background: #1a3020; color: #a5d6a7; }
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .sfp { padding: 14px 14px; }
+  .sfp__step { padding: 8px 10px; }
+  .sfp__step-label { font-size: 13px; }
+  .sfp__data-strip { gap: 6px; }
+  .sfp__data-chip { font-size: 11.5px; padding: 5px 9px; }
+}

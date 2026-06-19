@@ -1,0 +1,67 @@
+.profile-avatar-wrap { display:flex; align-items:center; gap:16px; margin-bottom:22px; flex-wrap:wrap; }
+.profile-avatar { width:64px; height:64px; background:linear-gradient(135deg,var(--primary-light),var(--primary-lighter)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:800; color:#fff; flex-shrink:0; }
+.profile-name  { font-size:20px; font-weight:700; color:var(--text-primary); }
+.profile-role  { font-size:13px; color:var(--text-secondary); margin-top:2px; }
+
+.profile-fields { display:flex; flex-direction:column; gap:0; }
+.profile-field  { padding:12px 0; border-bottom:1px solid var(--border); }
+.profile-field:last-of-type { border-bottom:none; }
+.profile-field label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:5px; }
+.profile-field__val  { font-size:15px; color:var(--text-primary); font-weight:500; }
+
+.setting-row { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--border); }
+.setting-row:last-child { border-bottom:none; }
+.setting-row__label { font-size:14px; font-weight:600; color:var(--text-primary); display:flex; align-items:center; }
+.setting-row__sub   { font-size:12px; color:var(--text-muted); margin-top:2px; }
+
+.toggle-btn { display:flex; align-items:center; gap:8px; background:none; border:none; cursor:pointer; font-size:16px; color:var(--text-secondary); }
+.toggle-track { width:44px; height:24px; background:var(--border); border-radius:12px; position:relative; transition:background 0.2s; }
+.toggle-track--on { background:var(--primary-light); }
+.toggle-thumb { position:absolute; top:2px; left:2px; width:20px; height:20px; background:#fff; border-radius:50%; transition:left 0.2s; box-shadow:0 1px 4px rgba(0,0,0,0.2); }
+.toggle-track--on .toggle-thumb { left:22px; }
+
+.lang-pill { padding:5px 12px; border-radius:14px; border:1.5px solid var(--border); background:var(--bg-card); color:var(--text-secondary); font-size:13px; font-weight:700; cursor:pointer; transition:all 0.18s; }
+.lang-pill--active { background:var(--primary-light); color:#fff; border-color:var(--primary-light); }
+
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; display:flex; align-items:center; justify-content:center; }
+.modal-box { background:var(--bg-card); border-radius:var(--radius-md); padding:36px; max-width:380px; width:90%; text-align:center; box-shadow:var(--shadow-lg); }
+.modal-box h3 { font-size:20px; font-weight:700; color:var(--text-primary); margin-bottom:10px; }
+.modal-box p  { font-size:14px; color:var(--text-secondary); }
+
+/* ── Profile pic with overlay ─────────────────────── */
+.profile-avatar-container {
+  position: relative; width: 64px; height: 64px; flex-shrink: 0;
+}
+.profile-avatar-img {
+  width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+  border: 3px solid var(--primary-light, #2e7d32);
+}
+.profile-pic-overlay {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: rgba(0,0,0,0.45); display: flex; align-items: center;
+  justify-content: center; cursor: pointer; color: #fff; font-size: 16px;
+  opacity: 0; transition: opacity 0.2s;
+}
+.profile-avatar-container:hover .profile-pic-overlay { opacity: 1; }
+
+/* Quick links */
+.profile-quick-links {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 18px; padding-top: 14px;
+  border-top: 1px solid var(--border, #e0e7ef);
+}
+.profile-quick-links .quick-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--bg-secondary, #f0f4f8);
+  border: 1px solid var(--border, #e0e7ef);
+  border-radius: 20px; padding: 7px 14px;
+  font-size: 13px; font-weight: 600;
+  color: var(--text-primary, #1a2332); text-decoration: none;
+  transition: all 0.15s;
+}
+.profile-quick-links .quick-link:hover {
+  background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32;
+}
+
+/* Since field */
+.profile-since { font-size: 11px; color: var(--text-muted, #90a4ae); margin-top: 2px; }

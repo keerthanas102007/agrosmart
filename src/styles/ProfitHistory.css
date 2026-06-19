@@ -1,0 +1,56 @@
+/* ── Profit History ───────────────────────────────── */
+.profit-page {}
+
+.profit-summary {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;
+}
+.profit-card {
+  background: var(--card-bg, #fff); border-radius: 14px; padding: 20px;
+  display: flex; align-items: center; gap: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid var(--border, #e0e7ef);
+}
+.profit-card span { font-size: 32px; }
+.profit-card .label { font-size: 12px; color: var(--text-muted, #90a4ae); font-weight: 600; text-transform: uppercase; }
+.profit-card .value { font-size: 22px; font-weight: 800; }
+.profit-card--invest .value { color: #e65100; }
+.profit-card--profit .value { color: #1565c0; }
+.profit-card--gain   .value { color: #2e7d32; }
+.profit-card--loss   .value { color: #c62828; }
+
+.profit-form-card {
+  background: var(--card-bg, #fff); border-radius: 16px; padding: 24px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07); border: 1px solid var(--border, #e0e7ef);
+  margin-bottom: 24px;
+}
+.profit-form-card h3 { margin: 0 0 20px; font-size: 16px; font-weight: 700; }
+.profit-form .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.profit-form .form-group { margin-bottom: 14px; }
+.profit-form label {
+  display: block; font-size: 12px; font-weight: 700;
+  color: var(--text-muted, #546e7a); margin-bottom: 6px;
+}
+
+.profit-list { display: flex; flex-direction: column; gap: 16px; }
+.profit-record {
+  background: var(--card-bg, #fff); border-radius: 14px; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid var(--border, #e0e7ef);
+  display: flex; gap: 0;
+}
+.profit-record__img { width: 140px; height: 140px; object-fit: cover; flex-shrink: 0; }
+.profit-record__body { padding: 16px 20px; flex: 1; }
+.profit-record__crop { font-size: 16px; font-weight: 700; color: var(--text-primary, #1a2332); }
+.profit-record__date { font-size: 12px; color: var(--text-muted, #90a4ae); margin: 4px 0 8px; }
+.profit-record__desc { font-size: 13px; color: var(--text-secondary, #546e7a); margin: 0 0 12px; }
+.profit-record__numbers { display: flex; gap: 16px; flex-wrap: wrap; }
+.profit-record__numbers span { font-size: 13px; font-weight: 700; }
+.invest  { color: #e65100; }
+.revenue { color: #1565c0; }
+.gain    { color: #2e7d32; }
+.loss    { color: #c62828; }
+
+.no-posts { text-align: center; padding: 60px 20px; color: var(--text-muted, #90a4ae); }
+.no-posts span { font-size: 48px; display: block; margin-bottom: 12px; }
+.loading-spinner { display: flex; align-items: center; gap: 12px; padding: 40px; justify-content: center; }
+.spinner { width: 28px; height: 28px; border: 3px solid #e0e7ef; border-top-color: #2e7d32; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.form-error { background: #fff3e0; border: 1px solid #ffcc80; color: #e65100; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }

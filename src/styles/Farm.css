@@ -1,0 +1,111 @@
+.farm-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.farm-detail-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.farm-detail-item:nth-child(odd) {
+  padding-right: 20px;
+  border-right: 1px solid var(--border);
+}
+
+.farm-detail-item:nth-child(even) {
+  padding-left: 20px;
+}
+
+.farm-detail-item__label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.farm-detail-item__value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.farm-detail-input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1.5px solid #2e7d32;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  background: #f1f8e9;
+}
+
+.field-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.field-info-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+}
+
+.field-info-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.field-info-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.field-info-card__name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.field-info-card__crop {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.field-info-card__meta {
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+.field-info-card__meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 600px) {
+  .farm-detail-grid { grid-template-columns: 1fr; }
+  .farm-detail-item:nth-child(odd) {
+    border-right: none;
+    padding-right: 0;
+  }
+  .farm-detail-item:nth-child(even) {
+    padding-left: 0;
+  }
+}
