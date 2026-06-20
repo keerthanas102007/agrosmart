@@ -105,6 +105,12 @@ const COLOR_TO_SOIL = {
     "grey":   "Clay Loam",
     "brown":  "Silt Loam",
     "medium": "Silt Loam",
+    "yellow": "Desert Soil",
+    "white":  "Chalky Soil",
+    "orange": "Laterite Soil",
+    "dark brown": "Peat Soil",
+    "alluvial":   "Alluvial Soil",
+    "saline":     "Saline Soil",
 };
 
 /* ──────────────────────────────────

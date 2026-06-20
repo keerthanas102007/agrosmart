@@ -18,222 +18,127 @@ function safeLogLogin(userId, email, req) {
 }
 
 /* ──────────────────────────────────
-   EMAIL TRANSPORTER
-   AgroSmart system Gmail → sends to ANY user email address
+   EMAIL TRANSPORTER — robust, any email domain
 ────────────────────────────────── */
 const getTransporter = () => {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS ||
         process.env.EMAIL_USER === "your_gmail@gmail.com") return null;
 
     return nodemailer.createTransport({
-        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
         },
+        tls: { rejectUnauthorized: false },
+        connectionTimeout: 10000,
+        greetingTimeout:   10000,
+        socketTimeout:     15000,
     });
 };
 
 /* ──────────────────────────────────
-   SEND LOGIN NOTIFICATION
-   toEmail = user's email (any domain — gmail/yahoo/college/etc.)
-   Sent FROM our AgroSmart Gmail TO that address
+   SAFE EMAIL SENDER
+   Never throws — always logs result
+   Works for Gmail, Yahoo, college, any domain
 ────────────────────────────────── */
-const sendLoginEmail = async (toEmail, userName) => {
+const safeEmail = async (toEmail, subject, html) => {
     try {
         const transporter = getTransporter();
         if (!transporter) {
-            console.log("⚠️  Email not sent — set EMAIL_USER and EMAIL_PASS in .env");
+            console.log("⚠️  Email skipped — EMAIL_USER/EMAIL_PASS not set in .env");
             return;
         }
-        const now = new Date().toLocaleString("en-IN", {
-            timeZone: "Asia/Kolkata",
-            dateStyle: "medium",
-            timeStyle: "short",
-        });
-
-        await transporter.sendMail({
+        const info = await transporter.sendMail({
             from: `"AgroSmart 🌾" <${process.env.EMAIL_USER}>`,
-            to: toEmail,
-            subject: "AgroSmart - Login Notification",
-            html: `
-<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f0f4f0;font-family:'Segoe UI',Arial,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f0;padding:30px 0;">
-    <tr><td align="center">
-      <table width="500" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-
-        <!-- Header -->
-        <tr>
-          <td style="background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);padding:32px 40px;text-align:center;">
-            <div style="font-size:36px;margin-bottom:8px;">🌾</div>
-            <h1 style="color:#ffffff;margin:0;font-size:24px;font-weight:800;letter-spacing:0.5px;">AgroSmart</h1>
-            <p style="color:rgba(255,255,255,0.8);margin:6px 0 0;font-size:13px;">Smart Agriculture Monitoring Platform</p>
-          </td>
-        </tr>
-
-        <!-- Body -->
-        <tr>
-          <td style="padding:36px 40px;">
-            <div style="text-align:center;margin-bottom:24px;">
-              <div style="background:#e8f5e9;border-radius:50%;width:64px;height:64px;display:inline-flex;align-items:center;justify-content:center;font-size:28px;">✅</div>
-            </div>
-            <h2 style="color:#1a2332;font-size:20px;font-weight:700;text-align:center;margin:0 0 8px;">Login Successful!</h2>
-            <p style="color:#546e7a;text-align:center;font-size:14px;margin:0 0 28px;">Welcome back to your farm dashboard, <strong style="color:#2e7d32;">${userName}</strong>!</p>
-
-            <!-- Info box -->
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fdf8;border:1px solid #c8e6c9;border-radius:10px;margin-bottom:28px;">
-              <tr>
-                <td style="padding:20px 24px;">
-                  <table width="100%" cellpadding="0" cellspacing="0">
-                    <tr>
-                      <td style="padding:6px 0;color:#546e7a;font-size:13px;">👤 Account</td>
-                      <td style="padding:6px 0;color:#1a2332;font-size:13px;font-weight:600;text-align:right;">${toEmail}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px 0;color:#546e7a;font-size:13px;">🕐 Login Time</td>
-                      <td style="padding:6px 0;color:#1a2332;font-size:13px;font-weight:600;text-align:right;">${now} IST</td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px 0;color:#546e7a;font-size:13px;">🌐 Platform</td>
-                      <td style="padding:6px 0;color:#1a2332;font-size:13px;font-weight:600;text-align:right;">AgroSmart Web App</td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-
-            <p style="color:#546e7a;font-size:13px;line-height:1.7;margin:0 0 20px;">
-              Your farm sensors are active and monitoring. Check your dashboard for live soil moisture, weather updates, and crop recommendations.
-            </p>
-
-            <!-- CTA Button -->
-            <div style="text-align:center;margin:28px 0;">
-              <a href="http://localhost:3000/dashboard" style="background:linear-gradient(135deg,#2e7d32,#43a047);color:#fff;padding:13px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;display:inline-block;">
-                🚀 Go to Dashboard
-              </a>
-            </div>
-
-            <p style="color:#90a4ae;font-size:12px;text-align:center;margin:0;">
-              If this wasn't you, please contact support immediately.
-            </p>
-          </td>
-        </tr>
-
-        <!-- Footer -->
-        <tr>
-          <td style="background:#f8fdf8;border-top:1px solid #e8f5e9;padding:20px 40px;text-align:center;">
-            <p style="color:#90a4ae;font-size:12px;margin:0;">© 2026 AgroSmart — Smart Agriculture Monitoring System</p>
-            <p style="color:#b0bec5;font-size:11px;margin:4px 0 0;">Capstone Project | React PWA</p>
-          </td>
-        </tr>
-
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>
-            `,
+            to:   toEmail,
+            subject,
+            html,
         });
-        console.log(`✅ Login email sent to ${toEmail}`);
-    } catch (emailErr) {
-        // Don't fail login if email fails — just log
-        console.error("Login email failed:", emailErr.message);
+        console.log(`✅ Email sent to ${toEmail} — ${info.messageId}`);
+    } catch (err) {
+        // Never block login/register because of email failure
+        console.error(`❌ Email failed to ${toEmail}:`, err.message);
     }
 };
 
 /* ──────────────────────────────────
-   SEND REGISTER WELCOME EMAIL
+   SEND LOGIN NOTIFICATION — uses safeEmail, works for any domain
+────────────────────────────────── */
+const sendLoginEmail = async (toEmail, userName) => {
+    const now = new Date().toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short",
+    });
+    await safeEmail(toEmail, "AgroSmart - Login Notification ✅", `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f0;font-family:'Segoe UI',Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f0;padding:30px 0;"><tr><td align="center">
+<table width="500" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+  <tr><td style="background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);padding:28px 40px;text-align:center;">
+    <div style="font-size:32px;">🌾</div>
+    <h1 style="color:#fff;margin:6px 0 0;font-size:22px;font-weight:800;">AgroSmart</h1>
+    <p style="color:rgba(255,255,255,0.8);margin:4px 0 0;font-size:12px;">Smart Agriculture Monitoring Platform</p>
+  </td></tr>
+  <tr><td style="padding:32px 40px;">
+    <div style="text-align:center;font-size:44px;margin-bottom:12px;">✅</div>
+    <h2 style="color:#1a2332;text-align:center;margin:0 0 8px;font-size:20px;">Login Successful!</h2>
+    <p style="color:#546e7a;text-align:center;font-size:14px;margin:0 0 22px;">Welcome back, <strong style="color:#2e7d32;">${userName}</strong>! Your farm dashboard is ready.</p>
+    <div style="background:#f8fdf8;border:1px solid #c8e6c9;border-radius:10px;padding:16px 20px;margin-bottom:22px;">
+      <p style="margin:4px 0;color:#546e7a;font-size:13px;">👤 Account: <strong style="color:#1a2332;">${toEmail}</strong></p>
+      <p style="margin:4px 0;color:#546e7a;font-size:13px;">🕐 Login Time: <strong style="color:#1a2332;">${now} IST</strong></p>
+      <p style="margin:4px 0;color:#546e7a;font-size:13px;">🌐 Platform: <strong style="color:#1a2332;">AgroSmart Web App</strong></p>
+    </div>
+    <div style="text-align:center;margin:20px 0;">
+      <a href="http://localhost:3000/dashboard" style="background:linear-gradient(135deg,#2e7d32,#43a047);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;">🚀 Go to Dashboard</a>
+    </div>
+    <p style="color:#90a4ae;font-size:11px;text-align:center;margin:0;">If this wasn't you, please contact support immediately.</p>
+  </td></tr>
+  <tr><td style="background:#f8fdf8;border-top:1px solid #e8f5e9;padding:14px 40px;text-align:center;">
+    <p style="color:#90a4ae;font-size:11px;margin:0;">© 2026 AgroSmart — Smart Agriculture Monitoring System</p>
+  </td></tr>
+</table></td></tr></table></body></html>`);
+};
+
+/* ──────────────────────────────────
+   SEND REGISTER WELCOME EMAIL — uses safeEmail, works for any domain
 ────────────────────────────────── */
 const sendRegisterEmail = async (toEmail, userName) => {
-    try {
-        const transporter = getTransporter();
-        if (!transporter) {
-            console.log("⚠️  Register email not sent — set EMAIL_USER and EMAIL_PASS in .env");
-            return;
-        }
-        const now = new Date().toLocaleString("en-IN", {
-            timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short",
-        });
-        await transporter.sendMail({
-            from: `"AgroSmart 🌾" <${process.env.EMAIL_USER}>`,
-            to: toEmail,
-            subject: "AgroSmart - Welcome! Registration Successful",
-            html: `
-<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"></head>
+    const now = new Date().toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short",
+    });
+    await safeEmail(toEmail, "AgroSmart - Welcome! Registration Successful 🎉", `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#f0f4f0;font-family:'Segoe UI',Arial,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f0;padding:30px 0;">
-    <tr><td align="center">
-      <table width="500" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-        <tr>
-          <td style="background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);padding:32px 40px;text-align:center;">
-            <div style="font-size:36px;margin-bottom:8px;">🌾</div>
-            <h1 style="color:#ffffff;margin:0;font-size:24px;font-weight:800;">AgroSmart</h1>
-            <p style="color:rgba(255,255,255,0.8);margin:6px 0 0;font-size:13px;">Smart Agriculture Monitoring Platform</p>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:36px 40px;">
-            <div style="text-align:center;margin-bottom:20px;">
-              <div style="background:#e8f5e9;border-radius:50%;width:64px;height:64px;display:inline-flex;align-items:center;justify-content:center;font-size:28px;">🎉</div>
-            </div>
-            <h2 style="color:#1a2332;font-size:20px;font-weight:700;text-align:center;margin:0 0 8px;">Registration Successful!</h2>
-            <p style="color:#546e7a;text-align:center;font-size:14px;margin:0 0 28px;">
-              வணக்கம் <strong style="color:#2e7d32;">${userName}</strong>! AgroSmart-ல உங்களை வரவேற்கிறோம் 🙏
-            </p>
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fdf8;border:1px solid #c8e6c9;border-radius:10px;margin-bottom:24px;">
-              <tr><td style="padding:20px 24px;">
-                <table width="100%" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td style="padding:6px 0;color:#546e7a;font-size:13px;">👤 Name</td>
-                    <td style="padding:6px 0;color:#1a2332;font-size:13px;font-weight:600;text-align:right;">${userName}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding:6px 0;color:#546e7a;font-size:13px;">📧 Email</td>
-                    <td style="padding:6px 0;color:#1a2332;font-size:13px;font-weight:600;text-align:right;">${toEmail}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding:6px 0;color:#546e7a;font-size:13px;">🕐 Registered At</td>
-                    <td style="padding:6px 0;color:#1a2332;font-size:13px;font-weight:600;text-align:right;">${now} IST</td>
-                  </tr>
-                </table>
-              </td></tr>
-            </table>
-            <p style="color:#546e7a;font-size:13px;line-height:1.8;margin:0 0 16px;">
-              உங்கள் account ready! இப்போ login பண்ணி இந்த features use பண்ணலாம்:
-            </p>
-            <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
-              ${["🌱 Real-time Soil Monitoring","💧 Smart Irrigation Control","🌤️ Weather-based Alerts","🦠 Disease Detection","💰 Profit Tracking"].map(f => `
-              <tr><td style="padding:5px 0;">
-                <span style="color:#2e7d32;font-size:13px;">✅ ${f}</span>
-              </td></tr>`).join("")}
-            </table>
-            <div style="text-align:center;margin:28px 0;">
-              <a href="http://localhost:3000" style="background:linear-gradient(135deg,#2e7d32,#43a047);color:#fff;padding:13px 32px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;display:inline-block;">
-                🚀 Login to Dashboard
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="background:#f8fdf8;border-top:1px solid #e8f5e9;padding:20px 40px;text-align:center;">
-            <p style="color:#90a4ae;font-size:12px;margin:0;">© 2026 AgroSmart — Smart Agriculture Monitoring System</p>
-          </td>
-        </tr>
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`,
-        });
-        console.log(`✅ Welcome email sent to ${toEmail}`);
-    } catch (emailErr) {
-        console.error("Register email failed:", emailErr.message);
-    }
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f0;padding:30px 0;"><tr><td align="center">
+<table width="500" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+  <tr><td style="background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);padding:28px 40px;text-align:center;">
+    <div style="font-size:32px;">🌾</div>
+    <h1 style="color:#fff;margin:6px 0 0;font-size:22px;font-weight:800;">AgroSmart</h1>
+    <p style="color:rgba(255,255,255,0.8);margin:4px 0 0;font-size:12px;">Smart Agriculture Monitoring Platform</p>
+  </td></tr>
+  <tr><td style="padding:32px 40px;">
+    <div style="text-align:center;font-size:44px;margin-bottom:12px;">🎉</div>
+    <h2 style="color:#1a2332;text-align:center;margin:0 0 8px;font-size:20px;">Registration Successful!</h2>
+    <p style="color:#546e7a;text-align:center;font-size:14px;margin:0 0 20px;">வணக்கம் <strong style="color:#2e7d32;">${userName}</strong>! AgroSmart-ல உங்களை வரவேற்கிறோம் 🙏</p>
+    <div style="background:#f8fdf8;border:1px solid #c8e6c9;border-radius:10px;padding:16px 20px;margin-bottom:18px;">
+      <p style="margin:4px 0;color:#546e7a;font-size:13px;">👤 Name: <strong style="color:#1a2332;">${userName}</strong></p>
+      <p style="margin:4px 0;color:#546e7a;font-size:13px;">📧 Email: <strong style="color:#1a2332;">${toEmail}</strong></p>
+      <p style="margin:4px 0;color:#546e7a;font-size:13px;">🕐 Registered: <strong style="color:#1a2332;">${now} IST</strong></p>
+    </div>
+    <p style="color:#2e7d32;font-size:13px;font-weight:700;margin:0 0 8px;">உங்களுக்கு கிடைக்கும் features:</p>
+    <p style="color:#546e7a;font-size:13px;margin:3px 0;">✅ Real-time Soil Monitoring</p>
+    <p style="color:#546e7a;font-size:13px;margin:3px 0;">✅ Smart Irrigation Control</p>
+    <p style="color:#546e7a;font-size:13px;margin:3px 0;">✅ Weather-based Alerts</p>
+    <p style="color:#546e7a;font-size:13px;margin:3px 0;">✅ Disease Detection</p>
+    <p style="color:#546e7a;font-size:13px;margin:3px 0;">✅ Farmer Community</p>
+    <div style="text-align:center;margin:22px 0;">
+      <a href="http://localhost:3000" style="background:linear-gradient(135deg,#2e7d32,#43a047);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;">🚀 Login to Dashboard</a>
+    </div>
+  </td></tr>
+  <tr><td style="background:#f8fdf8;border-top:1px solid #e8f5e9;padding:14px 40px;text-align:center;">
+    <p style="color:#90a4ae;font-size:11px;margin:0;">© 2026 AgroSmart — Smart Agriculture Monitoring System</p>
+  </td></tr>
+</table></td></tr></table></body></html>`);
 };
 
 /* ──────────────────────────────────

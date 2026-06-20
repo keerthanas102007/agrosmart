@@ -60,9 +60,16 @@ setTimeout(() => {
 
 /* ── Middleware ──────────────────────────────────── */
 app.use(cors({
-    origin: "*",
+    origin: [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        /\.vercel\.app$/,      // any Vercel deployment
+        /\.netlify\.app$/,     // any Netlify deployment
+        /\.render\.com$/,      // Render frontend
+    ],
     methods: ["GET","POST","PUT","DELETE"],
-    allowedHeaders: ["Content-Type","Authorization"]
+    allowedHeaders: ["Content-Type","Authorization"],
+    credentials: true,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

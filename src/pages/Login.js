@@ -48,11 +48,24 @@ export default function Login() {
       setLoading(true);
       setError("");
 
-      const response = await API.post("/auth/login", {
-        email:    email,
-        password: password,
-        phone:    phone.trim() || null,   // send phone for SMS
-      });
+      // ── Auto-retry 3 times if server temporarily busy ──
+      let response;
+      let lastErr;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          response = await API.post("/auth/login", {
+            email:    email,
+            password: password,
+            phone:    phone.trim() || null,
+          });
+          break;
+        } catch (e) {
+          lastErr = e;
+          if (e.response) break; // server gave error response — no retry
+          if (attempt < 3) await new Promise(r => setTimeout(r, 800));
+        }
+      }
+      if (!response) throw lastErr;
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user",  JSON.stringify(response.data.user));
@@ -64,9 +77,11 @@ export default function Login() {
       const msg = error.response?.data?.message || "";
       if (!error.response) {
         setError(
-          lang === "ta" ? "Server connect ஆகவில்லை. XAMPP-ல MySQL Start பண்ணி Node server run பண்ணவும்."
-          : lang === "hi" ? "Server से connect नहीं हुआ। XAMPP में MySQL start करें।"
-          : "Cannot connect to server. Start XAMPP MySQL and run the Node server."
+          lang === "ta"
+            ? "⚠️ Server இயங்கவில்லை. Terminal-ல் agrosmart-backend போய் 'node server.js' run பண்ணவும்."
+            : lang === "hi"
+            ? "⚠️ Server नहीं चल रहा। Terminal में: cd agrosmart-backend && node server.js"
+            : "⚠️ Server offline. Run: cd agrosmart-backend && node server.js"
         );
       } else {
         setError(msg || (

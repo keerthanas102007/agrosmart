@@ -18,16 +18,31 @@ ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, 
 
 // Soil profile static data — text values resolved via t keys at render time
 const SOIL_PROFILE_DEFS = {
-  "Sandy Loam":   { N:38, P:28, K:55, pH:6.4, organic:2.1, moisture:58, temp:29, reqAmt:"45", drainKey:"drainFast",     cropsKey:"scSandyLoam",   noteKey:"spSandyLoam"   },
-  "Clay Loam":    { N:52, P:40, K:65, pH:7.1, organic:4.2, moisture:80, temp:27, reqAmt:"28", drainKey:"drainSlow",     cropsKey:"scClayLoam",    noteKey:"spClayLoam"    },
-  "Silt Loam":    { N:45, P:35, K:60, pH:6.8, organic:3.5, moisture:74, temp:28, reqAmt:"35", drainKey:"drainModerate", cropsKey:"scSiltLoam",    noteKey:"spSiltLoam"    },
-  "Red Loam":     { N:42, P:35, K:58, pH:6.8, organic:3.2, moisture:74, temp:28, reqAmt:"40", drainKey:"drainModerate", cropsKey:"scRedLoam",     noteKey:"spRedLoam"     },
-  "Black Cotton": { N:60, P:45, K:70, pH:7.8, organic:4.8, moisture:85, temp:26, reqAmt:"22", drainKey:"drainVerySlow", cropsKey:"scBlackCotton", noteKey:"spBlackCotton" },
+  "Sandy Loam":    { N:38, P:28, K:55, pH:6.4, organic:2.1, moisture:58, temp:29, reqAmt:"45", drainKey:"drainFast",     cropsKey:"scSandyLoam",   noteKey:"spSandyLoam"   },
+  "Clay Loam":     { N:52, P:40, K:65, pH:7.1, organic:4.2, moisture:80, temp:27, reqAmt:"28", drainKey:"drainSlow",     cropsKey:"scClayLoam",    noteKey:"spClayLoam"    },
+  "Silt Loam":     { N:45, P:35, K:60, pH:6.8, organic:3.5, moisture:74, temp:28, reqAmt:"35", drainKey:"drainModerate", cropsKey:"scSiltLoam",    noteKey:"spSiltLoam"    },
+  "Red Loam":      { N:42, P:35, K:58, pH:6.8, organic:3.2, moisture:74, temp:28, reqAmt:"40", drainKey:"drainModerate", cropsKey:"scRedLoam",     noteKey:"spRedLoam"     },
+  "Black Cotton":  { N:60, P:45, K:70, pH:7.8, organic:4.8, moisture:85, temp:26, reqAmt:"22", drainKey:"drainVerySlow", cropsKey:"scBlackCotton", noteKey:"spBlackCotton" },
+  // Additional soil types — mapped to closest profile
+  "Alluvial Soil": { N:55, P:42, K:65, pH:7.0, organic:4.0, moisture:78, temp:27, reqAmt:"32", drainKey:"drainModerate", cropsKey:"scSiltLoam",    noteKey:"spSiltLoam"    },
+  "Laterite Soil": { N:30, P:20, K:45, pH:5.8, organic:1.8, moisture:55, temp:30, reqAmt:"48", drainKey:"drainFast",     cropsKey:"scRedLoam",     noteKey:"spRedLoam"     },
+  "Desert Soil":   { N:22, P:15, K:35, pH:8.0, organic:0.8, moisture:25, temp:35, reqAmt:"60", drainKey:"drainFast",     cropsKey:"scSandyLoam",   noteKey:"spSandyLoam"   },
+  "Mountain Soil": { N:40, P:30, K:50, pH:6.2, organic:5.0, moisture:70, temp:22, reqAmt:"30", drainKey:"drainFast",     cropsKey:"scSiltLoam",    noteKey:"spSiltLoam"    },
+  "Loamy Sand":    { N:35, P:25, K:50, pH:6.5, organic:1.5, moisture:50, temp:29, reqAmt:"50", drainKey:"drainFast",     cropsKey:"scSandyLoam",   noteKey:"spSandyLoam"   },
+  "Sandy Clay":    { N:48, P:38, K:60, pH:6.9, organic:3.0, moisture:72, temp:28, reqAmt:"30", drainKey:"drainSlow",     cropsKey:"scClayLoam",    noteKey:"spClayLoam"    },
+  "Saline Soil":   { N:25, P:18, K:40, pH:8.5, organic:1.0, moisture:60, temp:30, reqAmt:"25", drainKey:"drainSlow",     cropsKey:"scBlackCotton", noteKey:"spBlackCotton" },
+  "Chalky Soil":   { N:32, P:28, K:48, pH:7.8, organic:2.0, moisture:55, temp:28, reqAmt:"38", drainKey:"drainFast",     cropsKey:"scRedLoam",     noteKey:"spRedLoam"     },
+  "Peat Soil":     { N:65, P:48, K:55, pH:5.5, organic:8.0, moisture:88, temp:24, reqAmt:"20", drainKey:"drainVerySlow", cropsKey:"scBlackCotton", noteKey:"spBlackCotton" },
 };
 
 const SOIL_TYPE_KEYS = {
   "Sandy Loam":"soilSandyLoam", "Clay Loam":"soilClayLoam", "Silt Loam":"soilSiltLoam",
   "Red Loam":"soilRedLoam", "Black Cotton":"soilBlackCotton",
+  // Additional types use same key — fallback to English name
+  "Alluvial Soil":"soilAlluvial", "Laterite Soil":"soilLaterite",
+  "Desert Soil":"soilDesert", "Mountain Soil":"soilMountain",
+  "Loamy Sand":"soilLoamySand", "Sandy Clay":"soilSandyClay",
+  "Saline Soil":"soilSaline", "Chalky Soil":"soilChalky", "Peat Soil":"soilPeat",
 };
 
 export default function Soil() {

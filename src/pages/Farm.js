@@ -21,7 +21,25 @@ function healthColor(v) {
   return "#c62828";
 }
 
-const SOIL_TYPES = ["Red Loam","Black Cotton","Sandy Loam","Clay Loam","Silt Loam"];
+const SOIL_TYPES = [
+  // Common Indian soil types
+  "Red Loam",          // செம்மண்
+  "Black Cotton",      // கருப்பு மண்
+  "Sandy Loam",        // மணல் கலந்த மண்
+  "Clay Loam",         // களிமண்
+  "Silt Loam",         // வண்டல் மண்
+  // Additional types
+  "Alluvial Soil",     // வண்டல் மண் (நதிக்கரை)
+  "Laterite Soil",     // லேட்டரைட் மண்
+  "Desert Soil",       // பாலைவன மண்
+  "Mountain Soil",     // மலை மண்
+  "Peaty Soil",        // கரிம மண்
+  "Saline Soil",       // உப்பு மண்
+  "Loamy Sand",        // மணல் கலந்த வண்டல்
+  "Sandy Clay",        // மணல் களிமண்
+  "Chalky Soil",       // சுண்ணாம்பு மண்
+  "Peat Soil",         // தொண்டு மண்
+];
 const WATER_SOURCES = ["Borewell","Canal","River","Rainwater","Drip","Sprinkler","Borewell + Canal"];
 const IRRIGATION_TYPES = ["Drip","Sprinkler","Furrow","Flood","None"];
 const SEASONS = ["Kharif","Rabi","Annual","Zaid"];

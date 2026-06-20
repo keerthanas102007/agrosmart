@@ -11,7 +11,7 @@ export function getSocket() {
 
     try {
         const { io } = require("socket.io-client");
-        socket = io("http://localhost:5000", {
+        socket = io("http://43.205.135.176:5000", {
             transports: ["websocket","polling"],
             autoConnect: true,
             reconnection: true,

@@ -76,7 +76,11 @@ function getPlaceName(place, lang) {
   return lang === "ta" ? place.ta : lang === "hi" ? place.hi : place.en;
 }
 
-const SOIL_TYPES = ["Red Loam","Black Cotton","Sandy Loam","Clay Loam","Silt Loam"];
+const SOIL_TYPES = [
+  "Red Loam", "Black Cotton", "Sandy Loam", "Clay Loam", "Silt Loam",
+  "Alluvial Soil", "Laterite Soil", "Desert Soil", "Mountain Soil",
+  "Loamy Sand", "Sandy Clay", "Saline Soil", "Chalky Soil", "Peat Soil",
+];
 
 export default function Irrigation() {
   const { t, user, lang, setSharedWeather, markFlowStep } = useApp();

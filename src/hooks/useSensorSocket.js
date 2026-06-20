@@ -14,7 +14,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { io } from "socket.io-client";
 
-const SOCKET_URL = "http://localhost:5000";
+const SOCKET_URL = "http://43.205.135.176:5000";
 
 export default function useSensorSocket(userId) {
   const [sensorData, setSensorData]   = useState([]);
