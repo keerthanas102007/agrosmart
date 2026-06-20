@@ -25,11 +25,11 @@ const getTransporter = () => {
         process.env.EMAIL_USER === "your_gmail@gmail.com") return null;
 
     return nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
+        host: process.env.EMAIL_HOST || "smtp-relay.brevo.com",
+        port: parseInt(process.env.EMAIL_PORT || "587"),
         secure: false,
         auth: {
-            user: process.env.EMAIL_USER,
+            user: process.env.EMAIL_SMTP_LOGIN || process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
         },
         tls: { rejectUnauthorized: false },
